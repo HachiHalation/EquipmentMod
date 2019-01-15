@@ -56,12 +56,12 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber, PostIni
     }
 
 
-    private LongBlade generateLongBlade(int level){
-        logger.info("Generating test LongBlade");
+    public static LongBlade generateLongBlade(int level){
+        logger.info("Generating new LongBlade");
         return new LongBlade(level, allocatePoints(level, longBladeCosts, longBladeCateg));
     }
 
-    private int[] allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
+    private static int[] allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
         logger.info("allocating points");
         int numCategories = costs.size();
         int points = (int) Math.floor(Math.pow(level, 1.5));

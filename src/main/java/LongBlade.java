@@ -26,9 +26,6 @@ public class LongBlade extends CustomRelic{
         strMod = attributes[1];
         vulnImprove = attributes[2]*5;
 
-        triggerBuff = true;
-        triggerBuffDown = true;
-
         this.description = getUpdatedDescription();
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
@@ -40,23 +37,23 @@ public class LongBlade extends CustomRelic{
     }
 
     public void applyStrMod() {
-        if (triggerBuffDown){
-            triggerBuffDown = false;
+        if (triggerBuff){
+            triggerBuff= false;
             this.flash();
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, strMod), strMod));
             AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         } else
-            triggerBuffDown = true;
+            triggerBuff= true;
     }
 
     public void applyStrModDown() {
-        if (triggerBuff){
-            triggerBuff = false;
+        if (triggerBuffDown){
+            triggerBuffDown = false;
             this.flash();
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new LoseStrengthPower(AbstractDungeon.player, strMod), strMod));
             AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         } else
-            triggerBuff = true;
+            triggerBuffDown = true;
     }
 
     public LongBlade(int level, int strengthUp, int strengthMod, int vulnerableTurns, int vulnerableImprovement) {
@@ -94,6 +91,7 @@ public class LongBlade extends CustomRelic{
     @Override
     public void atBattleStart() {
         triggerBuff = false;
+        triggerBuffDown = true;
         AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, str), str));
         AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
     }
