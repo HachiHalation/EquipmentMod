@@ -1,3 +1,5 @@
+package EquipmentMod;
+
 import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
@@ -20,8 +22,8 @@ public class VulnerableDamagePatch
             return SpireReturn.Return(damage * 1.5F);
         } else {
             float mod = (AbstractDungeon.player.hasRelic("Paper Frog")) ? 1.75F : 1.5F;
-            if (AbstractDungeon.player.hasRelic("LongBlade")) {
-                LongBlade blade = (LongBlade) AbstractDungeon.player.getRelic("LongBlade");
+            if (AbstractDungeon.player.hasRelic("equipmentmod:LongBlade")) {
+                LongBlade blade = (LongBlade) AbstractDungeon.player.getRelic("equipmentmod:LongBlade");
                 float bonus = blade.getVulnImprove()/100F;
                 mod += bonus;
             }

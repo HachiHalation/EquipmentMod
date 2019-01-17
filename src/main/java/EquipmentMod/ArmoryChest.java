@@ -1,4 +1,5 @@
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
+package EquipmentMod;
+
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -11,8 +12,8 @@ import java.util.Iterator;
 
 public class ArmoryChest extends AbstractChest {
     public ArmoryChest() {
-        this.img = ImageMaster.loadImage("armoryChest.png");
-        this.openedImg = ImageMaster.loadImage("armoryChestOpened.png");
+        this.img = ImageMaster.loadImage("EquipmentModAssets/chests/armoryChest.png");
+        this.openedImg = ImageMaster.loadImage("EquipmentModAssets/chests/armoryChestOpened.png");
         this.hb = new Hitbox(256.0F * Settings.scale, 200.0F * Settings.scale);
         this.hb.move(CHEST_LOC_X, CHEST_LOC_Y - 100.0F * Settings.scale);
     }

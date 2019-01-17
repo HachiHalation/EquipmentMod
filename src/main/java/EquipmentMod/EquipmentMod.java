@@ -1,34 +1,41 @@
+package EquipmentMod;
+
 import basemod.BaseMod;
+import basemod.ModPanel;
 import basemod.helpers.RelicType;
-import basemod.interfaces.EditRelicsSubscriber;
-import basemod.interfaces.EditStringsSubscriber;
-import basemod.interfaces.PostCreateStartingRelicsSubscriber;
-import basemod.interfaces.PostInitializeSubscriber;
+import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
 @SpireInitializer
-public class EquipmentMod implements PostCreateStartingRelicsSubscriber, PostInitializeSubscriber, EditRelicsSubscriber, EditStringsSubscriber {
+public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
+        PostInitializeSubscriber,
+        EditRelicsSubscriber,
+        EditStringsSubscriber,
+        PostUpdateSubscriber,
+        RenderSubscriber{
     public static final String MOD_NAME = "Equipment Mod";
     public static final String AUTHOR = "HachiHalation";
-    public static final String DESCRIPTION = "Adds equipment relics to the game.";
+    public static final String DESCRIPTION = "Adds equipment EquipmentModAssets.relics to the game.";
     public static final Logger logger = LogManager.getLogger(EquipmentMod.class.getName());
     private static Random stat_random;
 
     private static BuffHelper bhelper;
     private static String[] longBladeCateg;
     private static HashMap<String, Integer> longBladeCosts;
+
+    public static InventoryScreen inventoryScreen;
+    public static Inventory inventory;
 
     public EquipmentMod() {
         BaseMod.subscribe(this);
@@ -46,6 +53,14 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber, PostIni
     public static void initialize(){
         @SuppressWarnings("unused")
         EquipmentMod mod = new EquipmentMod();
+    }
+
+    public static boolean closeModScreens() {
+        if (inventoryScreen.isOpen) {
+            inventoryScreen.close();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -83,7 +98,7 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber, PostIni
 
     @Override
     public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
-        arrayList.add("LongBlade");
+        arrayList.add("equipmentmod:LongBlade");
 
     }
 
@@ -91,15 +106,32 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber, PostIni
     @Override
     public void receiveEditStrings() {
         logger.info("loading relic strings");
-        BaseMod.loadCustomStringsFile(RelicStrings.class, "localization/Equipables-RelicStrings.json");
+        BaseMod.loadCustomStringsFile(RelicStrings.class, "EquipmentModAssets/localization/Equipment-RelicStrings.json");
     }
 
     @Override
     public void receivePostInitialize() {
         // TODO: Mod badge
-//        Texture badgeTexture = new Texture("/ggg.png");
-//        ModPanel settingsPanel = new ModPanel();
-//        BaseMod.registerModBadge(badgeTexture, MOD_NAME, AUTHOR, DESCRIPTION, settingsPanel);
+        Texture badgeTexture = new Texture("EquipmentModAssets/relics/ggg.png");
+        ModPanel settingsPanel = new ModPanel();
+        BaseMod.registerModBadge(badgeTexture, MOD_NAME, AUTHOR, DESCRIPTION, settingsPanel);
+
+        inventory = new Inventory();
+        inventoryScreen = new InventoryScreen(inventory);
+        BaseMod.addTopPanelItem(new InventoryTopBar(inventoryScreen));
     }
 
+    @Override
+    public void receivePostUpdate() {
+        if (inventoryScreen.isOpen) {
+            inventoryScreen.update();
+        }
+
+    }
+
+    @Override
+    public void receiveRender(SpriteBatch spriteBatch) {
+        if (inventoryScreen.isOpen)
+            inventoryScreen.render(spriteBatch);
+    }
 }

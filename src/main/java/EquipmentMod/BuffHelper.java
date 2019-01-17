@@ -1,3 +1,5 @@
+package EquipmentMod;
+
 import basemod.BaseMod;
 import basemod.interfaces.PostPowerApplySubscriber;
 import com.megacrit.cardcrawl.core.AbstractCreature;

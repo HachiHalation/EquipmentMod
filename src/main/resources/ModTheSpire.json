@@ -1,0 +1,12 @@
+{
+  "modid": "equipmentmod",
+  "name": "Equipment Mod",
+  "author_list": ["HachiHalation"],
+  "description": "Adds keepable equipment relics to the game, and changed ascension scaling.",
+  "credits": "TODO",
+  "version": "0.1.0",
+  "sts_version": "01-03-2019",
+  "mts_version": "3.6.0",
+  "dependencies": ["basemod"]
+
+}

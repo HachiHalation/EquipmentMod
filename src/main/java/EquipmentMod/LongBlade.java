@@ -1,3 +1,5 @@
+package EquipmentMod;
+
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
@@ -7,8 +9,8 @@ import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
-public class LongBlade extends CustomRelic{
-    private static final String id = "LongBlade";
+public class LongBlade extends Equipment{
+    private static final String id = "equipmentmod:LongBlade";
     private int level;
     private int str;
     private int strMod;
@@ -30,6 +32,7 @@ public class LongBlade extends CustomRelic{
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
         this.initializeTips();
+
     }
 
     public int getVulnImprove() {
