@@ -77,6 +77,8 @@ public class LongBlade extends Equipment{
 
     @Override
     public String getUpdatedDescription() {
+        if (level == 0)
+            return DESCRIPTIONS[0];
         StringBuilder desc = new StringBuilder();
         desc.append(DESCRIPTIONS[1]).append(level).append(DESCRIPTIONS[2]);
         if (str != 0)

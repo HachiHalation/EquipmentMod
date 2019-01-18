@@ -20,6 +20,7 @@ import java.util.Random;
 @SpireInitializer
 public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
         PostInitializeSubscriber,
+        StartGameSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
         PostUpdateSubscriber,
@@ -37,6 +38,8 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
     public static InventoryScreen inventoryScreen;
     public static Inventory inventory;
 
+    public LongBlade starterIronclad;
+
     public EquipmentMod() {
         BaseMod.subscribe(this);
         stat_random = new Random();
@@ -48,6 +51,8 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
 
         logger.info("starting buff helper");
         bhelper = new BuffHelper();
+
+
     }
 
     public static void initialize(){
@@ -65,9 +70,15 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
 
     @Override
     public void receiveEditRelics() {
-        //BaseMod.addRelic(generateLongBlade(2), RelicType.RED);
-        //BaseMod.addRelic(generateLongBlade(5), RelicType.RED);
-        BaseMod.addRelic(generateLongBlade(10), RelicType.RED);
+        logger.info("Initializing inventory...");
+        inventory = new Inventory();
+
+        logger.info("Loading equipment...");
+        // dummy relic
+        starterIronclad = generateLongBlade(0);
+        BaseMod.addRelic(starterIronclad, RelicType.RED);
+
+
     }
 
 
@@ -94,12 +105,13 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
         return result;
     }
 
-
-
     @Override
-    public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
-        arrayList.add("equipmentmod:LongBlade");
+    public void receiveStartGame() {
+        inventory.reequip();
+    }
 
+    public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
+//        arrayList.add("equipmentmod:LongBlade");
     }
 
 
@@ -116,7 +128,6 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
         ModPanel settingsPanel = new ModPanel();
         BaseMod.registerModBadge(badgeTexture, MOD_NAME, AUTHOR, DESCRIPTION, settingsPanel);
 
-        inventory = new Inventory();
         inventoryScreen = new InventoryScreen(inventory);
         BaseMod.addTopPanelItem(new InventoryTopBar(inventoryScreen));
     }

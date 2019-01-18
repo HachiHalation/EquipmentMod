@@ -20,11 +20,14 @@ public class Inventory {
     }
 
     private void loadInventory() {
-        for (int i = 1; i <= 20; i++){
+        for (int i = 0; i <= 20; i++){
             LongBlade temp = EquipmentMod.generateLongBlade(i);
             temp.isObtained = true;
             inventory.add(temp);
         }
+
+        if (ironcladEquipped == null)
+            ironcladEquipped = (Equipment) inventory.get(0).makeCopy();
     }
 
     public void addToInventory(Equipment item) {
@@ -33,9 +36,32 @@ public class Inventory {
 
     public void equip(Equipment item) {
         if (AbstractDungeon.player instanceof Ironclad) {
-            if (item instanceof LongBlade)
-                ironcladEquipped = item;
+            unequip(ironcladEquipped);
+            ironcladEquipped = (Equipment) item.makeCopy();
+            ironcladEquipped.instantObtain();
+            // TODO : Other things to do on equip
         }
+        // TODO: other characters
+
+    }
+
+    public void reequip() {
+        if (AbstractDungeon.player instanceof Ironclad) {
+            AbstractDungeon.player.loseRelic("equipmentmod:LongBlade");
+            if (ironcladEquipped != null) {
+                ironcladEquipped.instantObtain();
+            }
+            else
+                EquipmentMod.generateLongBlade(0).instantObtain();
+
+        }
+    }
+
+    public void unequip(Equipment item) {
+            Equipment relic =  (Equipment) AbstractDungeon.player.getRelic(item.relicId);
+            if (relic == item)
+                AbstractDungeon.player.loseRelic(item.relicId);
+            // TODO: other things that must be done when unequipping
     }
 
     public ArrayList<Equipment> getInventory() {

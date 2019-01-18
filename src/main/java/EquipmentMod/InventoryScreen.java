@@ -21,8 +21,8 @@ public class InventoryScreen {
     private static float padY;
 
     private static final int RELICS_PER_LINE = 10;
-    private AbstractRelic hoveredRelic;
-    private AbstractRelic clickedStartedRelic;
+    private Equipment hoveredRelic;
+    private Equipment clickedStartedRelic;
 
     private Inventory inventory;
 
@@ -41,6 +41,7 @@ public class InventoryScreen {
 
         this.inventory = inventory;
         equipButton = new ConfirmButton("Equip");
+
 
         isOpen = false;
     }
@@ -75,6 +76,12 @@ public class InventoryScreen {
             }
             clickedStartedRelic = hoveredRelic;
             clickedStartedRelic.beginLongPulse();
+            equipButton.isDisabled = false;
+        }
+
+        if (!equipButton.isDisabled && equipButton.isHovered && equipButton.hb.clicked) {
+            inventory.equip(clickedStartedRelic);
+            close();
         }
 
     }
@@ -123,7 +130,9 @@ public class InventoryScreen {
         hoveredRelic = null;
         if (clickedStartedRelic != null) {
             clickedStartedRelic.stopPulse();
+            equipButton.isDisabled = true;
         }
+        equipButton.hb.clicked = false;
         clickedStartedRelic = null;
         AbstractDungeon.overlayMenu.cancelButton.hide();
         equipButton.hide();
