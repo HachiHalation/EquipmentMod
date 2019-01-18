@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Inventory {
     public ArrayList<Equipment> inventory;
     public Equipment ironcladEquipped;
+    private Equipment ironcladStarter;
     public Equipment silentEquipped;
     public Equipment defectEquipped;
 
@@ -20,14 +21,14 @@ public class Inventory {
     }
 
     private void loadInventory() {
-        for (int i = 0; i <= 20; i++){
+        for (int i = 1; i <= 20; i++){
             LongBlade temp = EquipmentMod.generateLongBlade(i);
             temp.isObtained = true;
             inventory.add(temp);
         }
 
         if (ironcladEquipped == null)
-            ironcladEquipped = (Equipment) inventory.get(0).makeCopy();
+            ironcladEquipped = EquipmentMod.generateLongBlade(0);
     }
 
     public void addToInventory(Equipment item) {
@@ -47,12 +48,8 @@ public class Inventory {
 
     public void reequip() {
         if (AbstractDungeon.player instanceof Ironclad) {
-            AbstractDungeon.player.loseRelic("equipmentmod:LongBlade");
-            if (ironcladEquipped != null) {
-                ironcladEquipped.instantObtain();
-            }
-            else
-                EquipmentMod.generateLongBlade(0).instantObtain();
+            AbstractDungeon.player.loseRelic(ironcladEquipped.relicId);
+            ironcladEquipped.instantObtain();
 
         }
     }

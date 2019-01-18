@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 @SpireInitializer
-public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
+public class EquipmentMod implements
         PostInitializeSubscriber,
         StartGameSubscriber,
         EditRelicsSubscriber,
@@ -37,8 +37,6 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
 
     public static InventoryScreen inventoryScreen;
     public static Inventory inventory;
-
-    public LongBlade starterIronclad;
 
     public EquipmentMod() {
         BaseMod.subscribe(this);
@@ -75,8 +73,7 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
 
         logger.info("Loading equipment...");
         // dummy relic
-        starterIronclad = generateLongBlade(0);
-        BaseMod.addRelic(starterIronclad, RelicType.RED);
+        BaseMod.addRelic(generateLongBlade(0), RelicType.RED);
 
 
     }
@@ -109,11 +106,6 @@ public class EquipmentMod implements PostCreateStartingRelicsSubscriber,
     public void receiveStartGame() {
         inventory.reequip();
     }
-
-    public void receivePostCreateStartingRelics(AbstractPlayer.PlayerClass playerClass, ArrayList<String> arrayList) {
-//        arrayList.add("equipmentmod:LongBlade");
-    }
-
 
     @Override
     public void receiveEditStrings() {
