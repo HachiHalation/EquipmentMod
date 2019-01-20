@@ -38,6 +38,8 @@ public class EquipmentMod implements
     public static InventoryScreen inventoryScreen;
     public static Inventory inventory;
 
+    public static ArmoryRewardScreen armoryRewardScreen;
+
     public EquipmentMod() {
         BaseMod.subscribe(this);
         stat_random = new Random();
@@ -122,6 +124,8 @@ public class EquipmentMod implements
 
         inventoryScreen = new InventoryScreen(inventory);
         BaseMod.addTopPanelItem(new InventoryTopBar(inventoryScreen));
+
+        armoryRewardScreen = new ArmoryRewardScreen();
     }
 
     @Override

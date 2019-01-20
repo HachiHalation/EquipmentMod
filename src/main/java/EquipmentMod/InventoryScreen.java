@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.neow.NeowRoom;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.ui.buttons.ConfirmButton;
@@ -64,7 +65,8 @@ public class InventoryScreen {
         AbstractDungeon.overlayMenu.showBlackScreen();
         AbstractDungeon.overlayMenu.cancelButton.show("Return");
 
-        equipButton.show();
+        if (AbstractDungeon.getCurrRoom() instanceof NeowRoom)
+            equipButton.show();
 
         isOpen = true;
     }
@@ -89,6 +91,7 @@ public class InventoryScreen {
     private void initializePositions() {
         int linenum = 0;
         ArrayList<Equipment> items = inventory.getInventory();
+        EquipmentMod.logger.info("Inventory: " + items.toString());
 
         for (int i = 0; i < items.size(); ++i) {
             int mod = i % RELICS_PER_LINE;

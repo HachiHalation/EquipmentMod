@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ArmoryChest extends AbstractChest {
@@ -21,26 +22,19 @@ public class ArmoryChest extends AbstractChest {
     @Override
     public void open(boolean bossChest) {
         AbstractDungeon.overlayMenu.proceedButton.setLabel(TEXT[0]);
-        Iterator var2 = AbstractDungeon.player.relics.iterator();
-
-        AbstractRelic r;
-        while(var2.hasNext()) {
-            r = (AbstractRelic)var2.next();
-            r.onChestOpen(bossChest);
-        }
+        Iterator playereffects = AbstractDungeon.player.relics.iterator();
 
         CardCrawlGame.sound.play("CHEST_OPEN");
 
         // TODO: Remove an option on pickup
-        AbstractDungeon.getCurrRoom().addRelicToRewards(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
-        AbstractDungeon.getCurrRoom().addRelicToRewards(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
+        ArrayList<AbstractRelic> rewards = new ArrayList<>();
+        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
 
-        while(var2.hasNext()) {
-            r = (AbstractRelic)var2.next();
-            r.onChestOpenAfter(bossChest);
-        }
 
-        AbstractDungeon.combatRewardScreen.open();
+        AbstractDungeon.bossRelicScreen.open(rewards);
+//        EquipmentMod.armoryRewardScreen.open();
     }
 
     @Override
