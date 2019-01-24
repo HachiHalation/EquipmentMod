@@ -7,8 +7,6 @@ import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,18 +84,18 @@ public class EquipmentMod implements
         return new LongBlade(level, allocatePoints(level, longBladeCosts, longBladeCateg));
     }
 
-    private static int[] allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
+    private static ArrayList<Integer> allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
         logger.info("allocating points");
         int numCategories = costs.size();
         int points = (int) Math.floor(Math.pow(level, 1.5));
-        int[] result = new int[numCategories];
+        ArrayList<Integer> result = new ArrayList<>(numCategories);
 
         while (points > 0) {
             int idx = stat_random.nextInt(numCategories);
             int cost = costs.get(cat[idx]);
             if (points - cost >= 0) {
                 points -= cost;
-                result[idx]++;
+                result.set(idx, result.get(idx) + 1);
             }
         }
 

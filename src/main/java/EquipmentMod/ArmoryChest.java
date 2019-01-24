@@ -22,7 +22,6 @@ public class ArmoryChest extends AbstractChest {
     @Override
     public void open(boolean bossChest) {
         AbstractDungeon.overlayMenu.proceedButton.setLabel(TEXT[0]);
-        Iterator playereffects = AbstractDungeon.player.relics.iterator();
 
         CardCrawlGame.sound.play("CHEST_OPEN");
 
@@ -34,7 +33,6 @@ public class ArmoryChest extends AbstractChest {
 
 
         AbstractDungeon.bossRelicScreen.open(rewards);
-//        EquipmentMod.armoryRewardScreen.open();
     }
 
     @Override
