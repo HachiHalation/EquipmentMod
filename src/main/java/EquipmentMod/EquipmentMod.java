@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public class EquipmentMod implements
         logger.info("generating LongBlade categories and costs");
         longBladeCateg = LongBladeHelper.initializeCategories();
         longBladeCosts = LongBladeHelper.initializeCosts();
-        logger.info("LongBlade done!");
+        logger.info("LongBlade done!" + longBladeCateg.length);
 
         logger.info("starting buff helper");
         bhelper = new BuffHelper();
@@ -74,8 +75,8 @@ public class EquipmentMod implements
         logger.info("Loading equipment...");
         // dummy relic
         BaseMod.addRelic(generateLongBlade(0), RelicType.RED);
-
-
+        logger.info("saving...");
+        inventory.saveInventory();
     }
 
 
@@ -86,20 +87,24 @@ public class EquipmentMod implements
 
     private static ArrayList<Integer> allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
         logger.info("allocating points");
-        int numCategories = costs.size();
+        int numCategories = cat.length;
         int points = (int) Math.floor(Math.pow(level, 1.5));
-        ArrayList<Integer> result = new ArrayList<>(numCategories);
-
+        int[] result = new int[numCategories];
         while (points > 0) {
             int idx = stat_random.nextInt(numCategories);
             int cost = costs.get(cat[idx]);
             if (points - cost >= 0) {
                 points -= cost;
-                result.set(idx, result.get(idx) + 1);
+                result[idx]++;
             }
         }
 
-        return result;
+        ArrayList<Integer> attr = new ArrayList<>(numCategories);
+        for (int i : result) {
+            attr.add(i);
+        }
+
+        return attr;
     }
 
     @Override
