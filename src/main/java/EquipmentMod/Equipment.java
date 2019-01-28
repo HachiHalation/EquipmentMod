@@ -12,11 +12,13 @@ import java.util.List;
 
 public abstract class Equipment extends CustomRelic {
     ArrayList<Integer> attributes;
+    EquipmentID equipID;
     int level;
 
 
-    public Equipment(String id, Texture texture, RelicTier tier, LandingSound sfx, int level, ArrayList<Integer> attributes) {
+    public Equipment(String id, EquipmentID eid, Texture texture, RelicTier tier, LandingSound sfx, int level, ArrayList<Integer> attributes) {
         super(id, texture, tier, sfx);
+        this.equipID = eid;
         this.level = level;
         this.attributes = attributes;
 

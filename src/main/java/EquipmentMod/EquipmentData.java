@@ -14,7 +14,7 @@ public class EquipmentData{
     int silentEquipped;
     int defectEquipped;
 
-    ArrayList<String> ids;
+    ArrayList<EquipmentID> ids;
     ArrayList<Integer> level;
     ArrayList<ArrayList<Integer>> attributesList;
 
@@ -24,13 +24,13 @@ public class EquipmentData{
         level = new ArrayList<>();
         attributesList = new ArrayList<>();
         for (Equipment e : inventory) {
-            ids.add(e.name);
+            ids.add(e.equipID);
             level.add(e.level);
             attributesList.add(e.attributes);
         }
 
         ironcladEquipped = ids.size();
-        ids.add(ironclad.name);
+        ids.add(ironclad.equipID);
         level.add(ironclad.level);
         attributesList.add(ironclad.attributes);
 

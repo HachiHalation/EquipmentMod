@@ -90,13 +90,13 @@ public class Inventory {
 
         for (int i = 0; i < data.ids.size(); ++i) {
             if (i != data.ironcladEquipped) {
-                LongBlade blade = new LongBlade(data.level.get(i), data.attributesList.get(i));
-                blade.isObtained = true;
-                addToInventory(blade);
+                Equipment equip = EquipmentHelper.createFromStats(data.ids.get(i), data.level.get(i), data.attributesList.get(i));
+                equip.isObtained = true;
+                addToInventory(equip);
             }
 
         }
-        ironcladEquipped = new LongBlade(data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
+        ironcladEquipped = EquipmentHelper.createFromStats(data.ids.get(data.ironcladEquipped), data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
     }
 
     public void addToInventory(Equipment item) {

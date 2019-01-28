@@ -24,7 +24,7 @@ public class LongBlade extends Equipment{
     private int vulnbuff;
 
     public LongBlade(int level, ArrayList<Integer> attributes) {
-        super (ID, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes);
+        super (ID, EquipmentID.LONGBLADE, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes);
 
         str = attributes.get(STRENGTH_IDX);
         strmod = attributes.get(STRENGTHMOD_IDX);

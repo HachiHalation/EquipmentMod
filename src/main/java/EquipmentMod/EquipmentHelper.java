@@ -48,6 +48,10 @@ public class EquipmentHelper {
     public static Equipment generate(EquipmentID id, int level) {
         return base.get(id.idx).makeType(level, allocatePoints(level, costs.get(id.idx), categs.get(id.idx)));
     }
+
+    public static Equipment createFromStats(EquipmentID id, int level, ArrayList<Integer> attributes) {
+        return base.get(id.idx).makeType(level, attributes);
+    }
 }
 
 enum EquipmentID {
