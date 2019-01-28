@@ -31,4 +31,8 @@ public class LongBladeHelper{
         return costs;
     }
 
+    public static LongBlade generateLongBlade(int level){
+        return new LongBlade(level, allocatePoints(level, longBladeCosts, longBladeCateg));
+    }
+
 }

@@ -26,14 +26,14 @@ public class LongBlade extends Equipment{
     public LongBlade(int level, ArrayList<Integer> attributes) {
         super (ID, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes);
 
+        str = attributes.get(STRENGTH_IDX);
+        strmod = attributes.get(STRENGTHMOD_IDX);
+        vulnbuff = attributes.get(VULN_BUFF_IDX) * 5;
+
         this.description = getUpdatedDescription();
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
         this.initializeTips();
-
-        str = attributes.get(STRENGTH_IDX);
-        strmod = attributes.get(STRENGTHMOD_IDX);
-        vulnbuff = attributes.get(VULN_BUFF_IDX);
     }
 
     public int getVulnImprove() {
@@ -91,4 +91,8 @@ public class LongBlade extends Equipment{
         return new LongBlade(level, attributes);
     }
 
+    @Override
+    public void makeType(int level, ArrayList<Integer> attributes) {
+        new LongBlade(level, attributes);
+    }
 }

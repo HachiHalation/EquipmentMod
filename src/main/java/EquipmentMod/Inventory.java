@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventory {
+
+
     public ArrayList<Equipment> inventory;
     public Equipment ironcladEquipped;
-    private Equipment ironcladStarter;
     public Equipment silentEquipped;
     public Equipment defectEquipped;
 
@@ -27,12 +28,13 @@ public class Inventory {
         loadInventory();
     }
 
+    //TODO: obscure file data
     public void saveInventory() {
         EquipmentData data = new EquipmentData(ironcladEquipped, silentEquipped, defectEquipped, inventory);
 
         HashMap<String, Object> map = new HashMap<>();
         EquipmentMod.logger.info("saving ironclad equipped: " + ironcladEquipped);
-        map.put("ironclad", data.ironcladEquipped);
+        map.put("ironcladEquipped", data.ironcladEquipped);
 //        EquipmentMod.logger.info("saving silent equipped: " + silentEquipped);
 //        map.put("silent", silentEquipped);
 //        EquipmentMod.logger.info("saving defect equipped: " + defectEquipped);
@@ -85,6 +87,18 @@ public class Inventory {
         }
         else
             EquipmentMod.logger.info("attributes are null!");
+
+        for (int i = 0; i < data.ids.size(); ++i) {
+            if (i != data.ironcladEquipped) {
+                LongBlade blade = new LongBlade(data.level.get(i), data.attributesList.get(i));
+                blade.isObtained = true;
+                addToInventory(blade);
+            }
+
+        }
+        ironcladEquipped = new LongBlade(data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
+
+
 
 //        for (int i = 1; i <= 20; i++){
 //            LongBlade temp = EquipmentMod.generateLongBlade(i);

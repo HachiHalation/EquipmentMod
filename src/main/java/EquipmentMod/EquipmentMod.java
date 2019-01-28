@@ -20,6 +20,7 @@ import java.util.Random;
 public class EquipmentMod implements
         PostInitializeSubscriber,
         StartGameSubscriber,
+        StartActSubscriber,
         EditRelicsSubscriber,
         EditStringsSubscriber,
         PostUpdateSubscriber,
@@ -80,24 +81,24 @@ public class EquipmentMod implements
     }
 
 
-    public static LongBlade generateLongBlade(int level){
-        logger.info("Generating new LongBlade");
-        return new LongBlade(level, allocatePoints(level, longBladeCosts, longBladeCateg));
-    }
+//    public static LongBlade generateLongBlade(int level){
+//        logger.info("Generating new LongBlade");
+//        return new LongBlade(level, allocatePoints(level, longBladeCosts, longBladeCateg));
+//    }
 
-    private static ArrayList<Integer> allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
-        logger.info("allocating points");
-        int numCategories = cat.length;
-        int points = (int) Math.floor(Math.pow(level, 1.5));
-        int[] result = new int[numCategories];
-        while (points > 0) {
-            int idx = stat_random.nextInt(numCategories);
-            int cost = costs.get(cat[idx]);
-            if (points - cost >= 0) {
-                points -= cost;
-                result[idx]++;
-            }
-        }
+//    private static ArrayList<Integer> allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
+//        logger.info("allocating points");
+//        int numCategories = cat.length;
+//        int points = (int) Math.floor(Math.pow(level, 1.5));
+//        int[] result = new int[numCategories];
+//        while (points > 0) {
+//            int idx = stat_random.nextInt(numCategories);
+//            int cost = costs.get(cat[idx]);
+//            if (points - cost >= 0) {
+//                points -= cost;
+//                result[idx]++;
+//            }
+//        }
 
         ArrayList<Integer> attr = new ArrayList<>(numCategories);
         for (int i : result) {
@@ -137,6 +138,11 @@ public class EquipmentMod implements
             inventoryScreen.update();
         }
 
+    }
+
+    @Override
+    public void receiveStartAct() {
+        inventory.saveInventory();
     }
 
     @Override

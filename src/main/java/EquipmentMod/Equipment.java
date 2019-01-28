@@ -32,4 +32,6 @@ public abstract class Equipment extends CustomRelic {
         this.relicTip();
         UnlockTracker.markRelicAsSeen(this.relicId);
     }
+
+    public abstract void makeType(int level, ArrayList<Integer> attributes);
 }
