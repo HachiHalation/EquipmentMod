@@ -33,5 +33,5 @@ public abstract class Equipment extends CustomRelic {
         UnlockTracker.markRelicAsSeen(this.relicId);
     }
 
-    public abstract void makeType(int level, ArrayList<Integer> attributes);
+    public abstract LongBlade makeType(int level, ArrayList<Integer> attributes);
 }

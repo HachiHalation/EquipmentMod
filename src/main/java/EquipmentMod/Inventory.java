@@ -97,17 +97,6 @@ public class Inventory {
 
         }
         ironcladEquipped = new LongBlade(data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
-
-
-
-//        for (int i = 1; i <= 20; i++){
-//            LongBlade temp = EquipmentMod.generateLongBlade(i);
-//            temp.isObtained = true;
-//            inventory.add(temp);
-//        }
-//
-//        if (ironcladEquipped == null)
-//            ironcladEquipped = EquipmentMod.generateLongBlade(0);
     }
 
     public void addToInventory(Equipment item) {

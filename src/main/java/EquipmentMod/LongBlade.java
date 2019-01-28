@@ -82,8 +82,10 @@ public class LongBlade extends Equipment{
     public void atBattleStart() {
         triggerBuff = false;
         triggerBuffDown = true;
-        AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, str), str));
-        AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        if ( str > 0) {
+            AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, str), str));
+            AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        }
     }
 
     @Override
@@ -92,7 +94,7 @@ public class LongBlade extends Equipment{
     }
 
     @Override
-    public void makeType(int level, ArrayList<Integer> attributes) {
-        new LongBlade(level, attributes);
+    public LongBlade makeType(int level, ArrayList<Integer> attributes) {
+        return new LongBlade(level, attributes);
     }
 }

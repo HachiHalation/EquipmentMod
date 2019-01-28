@@ -25,12 +25,10 @@ public class ArmoryChest extends AbstractChest {
 
         CardCrawlGame.sound.play("CHEST_OPEN");
 
-        // TODO: Remove an option on pickup
         ArrayList<AbstractRelic> rewards = new ArrayList<>();
-        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
-        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
-        rewards.add(EquipmentMod.generateLongBlade(AbstractDungeon.ascensionLevel));
-
+        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
 
         AbstractDungeon.bossRelicScreen.open(rewards);
     }
