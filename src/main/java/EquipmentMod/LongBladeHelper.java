@@ -1,16 +1,13 @@
 package EquipmentMod;
 
-import basemod.interfaces.PostPowerApplySubscriber;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import java.util.HashMap;
 
 public class LongBladeHelper{
 
     public static Texture getTexture(){
-        return new Texture("EquipmentModAssets/relics/ggg.png");
+        return new Texture("EquipmentModAssets/relics/heavyBladeTemp.png");
     }
 
     public static String[] initializeCategories() {

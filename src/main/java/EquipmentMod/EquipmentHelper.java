@@ -3,6 +3,7 @@ package EquipmentMod;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class EquipmentHelper {
@@ -14,17 +15,23 @@ public class EquipmentHelper {
 
     public static void initializeEquipment() {
         base = new ArrayList<>();
+        categs = new ArrayList<>();
+        costs = new ArrayList<>();
 
         EquipmentMod.logger.info("init: LongBlade");
         categs.add(EquipmentID.LONGBLADE.idx, LongBladeHelper.initializeCategories());
+        EquipmentMod.logger.info("categories: " + Arrays.toString(categs.get(EquipmentID.LONGBLADE.idx)));
         costs.add(EquipmentID.LONGBLADE.idx, LongBladeHelper.initializeCosts());
-        base.add(new LongBlade(0, allocatePoints(0, costs.get(EquipmentID.LONGBLADE.idx), categs.get(EquipmentID.LONGBLADE.idx))));
-
+        EquipmentMod.logger.info("costs: " + costs.get(EquipmentID.LONGBLADE.idx).toString());
+        LongBlade blade = new LongBlade(0, allocatePoints(0, costs.get(EquipmentID.LONGBLADE.idx), categs.get(EquipmentID.LONGBLADE.idx)));
+        base.add(blade);
 
     }
 
 
     public static ArrayList<Integer> allocatePoints(int level, HashMap<String, Integer> costs, String[] cat) {
+        EquipmentMod.logger.info("allocating points...");
+
         int numCategories = cat.length;
         int points = (int) Math.floor(Math.pow(level, 1.5));
         int[] result = new int[numCategories];
@@ -42,6 +49,7 @@ public class EquipmentHelper {
             pts.add(i);
         }
 
+        EquipmentMod.logger.info("points allocated");
         return pts;
     }
 
@@ -55,7 +63,8 @@ public class EquipmentHelper {
 }
 
 enum EquipmentID {
-    LONGBLADE (0);
+    LONGBLADE (0),
+    STANDARDARMOR(1);
 
     int idx;
 

@@ -42,10 +42,6 @@ public class EquipmentMod implements
         BaseMod.subscribe(this);
         stat_random = new Random();
 
-        logger.info("init equipment");
-        EquipmentHelper.initializeEquipment();
-
-
         logger.info("starting buff helper");
         bhelper = new BuffHelper();
 
@@ -67,6 +63,9 @@ public class EquipmentMod implements
 
     @Override
     public void receiveEditRelics() {
+        logger.info("init equipment");
+        EquipmentHelper.initializeEquipment();
+
         logger.info("Initializing inventory...");
         inventory = new Inventory();
 

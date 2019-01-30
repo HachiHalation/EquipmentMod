@@ -34,6 +34,7 @@ public class LongBlade extends Equipment{
         this.tips.clear();
         this.tips.add(new PowerTip(this.name, this.description));
         this.initializeTips();
+
     }
 
     public int getVulnImprove() {
@@ -60,22 +61,6 @@ public class LongBlade extends Equipment{
             triggerBuffDown = true;
     }
 
-    @Override
-    public String getUpdatedDescription() {
-        if (level == 0)
-            return DESCRIPTIONS[0];
-        StringBuilder desc = new StringBuilder();
-        desc.append(DESCRIPTIONS[1]).append(level).append(DESCRIPTIONS[2]);
-        if (str != 0)
-            desc.append(DESCRIPTIONS[3]).append(str).append(DESCRIPTIONS[4]);
-        if (strmod != 0)
-            desc.append(DESCRIPTIONS[5]).append(strmod).append(DESCRIPTIONS[6]);
-        if (vulnbuff != 0)
-            desc.append(DESCRIPTIONS[7]).append(vulnbuff).append(DESCRIPTIONS[8]);
-
-        return desc.toString();
-    }
-
 
 
     @Override
@@ -94,7 +79,7 @@ public class LongBlade extends Equipment{
     }
 
     @Override
-    public LongBlade makeType(int level, ArrayList<Integer> attributes) {
+    public Equipment makeType(int level, ArrayList<Integer> attributes) {
         return new LongBlade(level, attributes);
     }
 }

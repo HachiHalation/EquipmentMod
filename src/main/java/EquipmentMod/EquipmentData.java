@@ -29,11 +29,13 @@ public class EquipmentData{
             attributesList.add(e.attributes);
         }
 
-        ironcladEquipped = ids.size();
-        ids.add(ironclad.equipID);
-        level.add(ironclad.level);
-        attributesList.add(ironclad.attributes);
-
+        if (ironclad != null) {
+            ironcladEquipped = ids.size();
+            ids.add(ironclad.equipID);
+            level.add(ironclad.level);
+            attributesList.add(ironclad.attributes);
+        } else
+            ironcladEquipped = -1;
 //
 //        silentEquipped = ids.size();
 //        ids.add(silent.name);

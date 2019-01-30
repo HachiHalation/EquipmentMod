@@ -25,6 +25,23 @@ public abstract class Equipment extends CustomRelic {
     }
 
     @Override
+    public String getUpdatedDescription() {
+        if (level == 0)
+            return DESCRIPTIONS[0];
+
+        StringBuilder desc = new StringBuilder();
+        desc.append(DESCRIPTIONS[1]).append(level).append(DESCRIPTIONS[2]);
+
+        int descNum = 2;
+        for (int i : attributes) {
+            if (i != 0)
+                desc.append(descNum++).append(i).append(descNum++);
+        }
+
+        return desc.toString();
+    }
+
+    @Override
     public void obtain() {
         toInventory();
     }
@@ -35,5 +52,5 @@ public abstract class Equipment extends CustomRelic {
         UnlockTracker.markRelicAsSeen(this.relicId);
     }
 
-    public abstract LongBlade makeType(int level, ArrayList<Integer> attributes);
+    public abstract Equipment makeType(int level, ArrayList<Integer> attributes);
 }

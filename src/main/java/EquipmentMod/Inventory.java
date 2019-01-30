@@ -3,6 +3,7 @@ package EquipmentMod;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.megacrit.cardcrawl.characters.Ironclad;
@@ -62,41 +63,50 @@ public class Inventory {
     private void loadInventory() {
         EquipmentData data;
         Gson gson = new Gson();
-        FileHandle file = Gdx.files.local("equipmentmod/saves/inventory.data");
-        String str = file.readString();
-        EquipmentMod.logger.info("file read string: " + str);
 
-        EquipmentMod.logger.info("loading...");
-        data = gson.fromJson(str, EquipmentData.class);
-        if (data.ids != null) {
-            EquipmentMod.logger.info("loaded ids: " + data.ids.toString());
-        } else {
-            EquipmentMod.logger.info("ids are null!");
-        }
+        try {
+            FileHandle file = Gdx.files.local("equipmentmod/saves/inventory.data");
+            String str = file.readString();
+            EquipmentMod.logger.info("file read string: " + str);
 
-        if (data.level != null)
-            EquipmentMod.logger.info("loaded level: " + data.level.toString());
-        else
-            EquipmentMod.logger.info("level are null!");
-
-        if (data.attributesList != null) {
-            EquipmentMod.logger.info("loaded attr: ");
-            for (ArrayList a : data.attributesList) {
-                EquipmentMod.logger.info(a.toString());
-            }
-        }
-        else
-            EquipmentMod.logger.info("attributes are null!");
-
-        for (int i = 0; i < data.ids.size(); ++i) {
-            if (i != data.ironcladEquipped) {
-                Equipment equip = EquipmentHelper.createFromStats(data.ids.get(i), data.level.get(i), data.attributesList.get(i));
-                equip.isObtained = true;
-                addToInventory(equip);
+            EquipmentMod.logger.info("loading...");
+            data = gson.fromJson(str, EquipmentData.class);
+            if (data.ids != null) {
+                EquipmentMod.logger.info("loaded ids: " + data.ids.toString());
+            } else {
+                EquipmentMod.logger.info("ids are null!");
             }
 
+            if (data.level != null)
+                EquipmentMod.logger.info("loaded level: " + data.level.toString());
+            else
+                EquipmentMod.logger.info("level are null!");
+
+            if (data.attributesList != null) {
+                EquipmentMod.logger.info("loaded attr: ");
+                for (ArrayList a : data.attributesList) {
+                    EquipmentMod.logger.info(a.toString());
+                }
+            }
+            else
+                EquipmentMod.logger.info("attributes are null!");
+
+            for (int i = 0; i < data.ids.size(); ++i) {
+                if (i != data.ironcladEquipped) {
+                    Equipment equip = EquipmentHelper.createFromStats(data.ids.get(i), data.level.get(i), data.attributesList.get(i));
+                    equip.isObtained = true;
+                    addToInventory(equip);
+                }
+
+            }
+            if (data.ironcladEquipped >= 0)
+                ironcladEquipped = EquipmentHelper.createFromStats(data.ids.get(data.ironcladEquipped), data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
+            else
+                ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0);
+        } catch (GdxRuntimeException e) {
+            EquipmentMod.logger.info("WARNING: Inventory file not found...");
         }
-        ironcladEquipped = EquipmentHelper.createFromStats(data.ids.get(data.ironcladEquipped), data.level.get(data.ironcladEquipped), data.attributesList.get(data.ironcladEquipped));
+
     }
 
     public void addToInventory(Equipment item) {
@@ -116,8 +126,13 @@ public class Inventory {
 
     public void reequip() {
         if (AbstractDungeon.player instanceof Ironclad) {
-            AbstractDungeon.player.loseRelic(ironcladEquipped.relicId);
+            if (ironcladEquipped != null)
+                AbstractDungeon.player.loseRelic(ironcladEquipped.relicId);
+            else
+                ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0);
+
             ironcladEquipped.instantObtain();
+
 
         }
     }
