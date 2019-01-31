@@ -14,7 +14,7 @@ public class StdArmorHelper {
         return new String[] {
                 "Dexterity",
                 "Plated Armor",
-                "HP/P/T/ Mod",
+                "P/T Mod",
                 "HP"
         };
     }
@@ -24,7 +24,7 @@ public class StdArmorHelper {
 
         costs.put("Dexterity", 2);
         costs.put("Plated Armor", 1);
-        costs.put("HP/P/T Mod", 2);
+        costs.put("P/T Mod", 2);
         costs.put("HP", 1);
 
         return costs;

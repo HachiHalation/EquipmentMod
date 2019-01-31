@@ -18,13 +18,24 @@ public class EquipmentHelper {
         categs = new ArrayList<>();
         costs = new ArrayList<>();
 
+        Equipment temp;
+
+        int idx = EquipmentID.LONGBLADE.idx;
         EquipmentMod.logger.info("init: LongBlade");
-        categs.add(EquipmentID.LONGBLADE.idx, LongBladeHelper.initializeCategories());
-        EquipmentMod.logger.info("categories: " + Arrays.toString(categs.get(EquipmentID.LONGBLADE.idx)));
-        costs.add(EquipmentID.LONGBLADE.idx, LongBladeHelper.initializeCosts());
-        EquipmentMod.logger.info("costs: " + costs.get(EquipmentID.LONGBLADE.idx).toString());
-        LongBlade blade = new LongBlade(0, allocatePoints(0, costs.get(EquipmentID.LONGBLADE.idx), categs.get(EquipmentID.LONGBLADE.idx)));
-        base.add(blade);
+        categs.add(idx, LongBladeHelper.initializeCategories());
+        EquipmentMod.logger.info("categories: " + Arrays.toString(categs.get(idx)));
+        costs.add(idx, LongBladeHelper.initializeCosts());
+        EquipmentMod.logger.info("costs: " + costs.get(idx).toString());
+        temp = new LongBlade(0, allocatePoints(0, costs.get(idx), categs.get(idx)));
+
+        base.add(temp);
+
+        idx = EquipmentID.STANDARDARMOR.idx;
+        EquipmentMod.logger.info("init: StandardArmor");
+        categs.add(idx, StdArmorHelper.initializeCategories());
+        costs.add(idx, StdArmorHelper.initializeCosts());
+        temp = new StandardArmor(0, allocatePoints(0, costs.get(idx), categs.get(idx)));
+        base.add(temp);
 
     }
 

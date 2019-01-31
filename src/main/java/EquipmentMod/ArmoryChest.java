@@ -27,7 +27,7 @@ public class ArmoryChest extends AbstractChest {
 
         ArrayList<AbstractRelic> rewards = new ArrayList<>();
         rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
-        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentHelper.generate(EquipmentID.STANDARDARMOR, AbstractDungeon.ascensionLevel));
         rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
 
         AbstractDungeon.bossRelicScreen.open(rewards);

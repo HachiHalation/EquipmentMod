@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class StandardArmor extends Equipment{
     private static final String ID = "equipmentmod:StandardArmor";
+    private static final int[] weights = {1, 1, 1, 5};
     private static final int DEX_IDX = 0;
     private static final int PLATED_IDX = 1;
     private static final int MOD_IDX = 2;
@@ -19,7 +20,7 @@ public class StandardArmor extends Equipment{
     private int hp;
 
     public StandardArmor(int level, ArrayList<Integer> attributes) {
-        super(ID, EquipmentID.STANDARDARMOR, StdArmorHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes);
+        super(ID, EquipmentID.STANDARDARMOR, StdArmorHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes, weights);
         dex = attributes.get(DEX_IDX);
         plated = attributes.get(PLATED_IDX);
         mod = attributes.get(MOD_IDX);

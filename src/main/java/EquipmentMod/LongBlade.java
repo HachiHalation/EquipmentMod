@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class LongBlade extends Equipment{
     private static final String ID = "equipmentmod:LongBlade";
+    private static final int[] weights = {1, 1, 5};
     private static final int STRENGTH_IDX = 0;
     private static final int STRENGTHMOD_IDX = 1;
     private static final int VULN_BUFF_IDX = 2;
@@ -24,7 +25,7 @@ public class LongBlade extends Equipment{
     private int vulnbuff;
 
     public LongBlade(int level, ArrayList<Integer> attributes) {
-        super (ID, EquipmentID.LONGBLADE, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes);
+        super (ID, EquipmentID.LONGBLADE, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID, level, attributes, weights);
 
         str = attributes.get(STRENGTH_IDX);
         strmod = attributes.get(STRENGTHMOD_IDX);

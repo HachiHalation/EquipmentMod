@@ -72,6 +72,7 @@ public class EquipmentMod implements
         logger.info("Loading equipment...");
         // dummy relic
         BaseMod.addRelic(EquipmentHelper.generate(EquipmentID.LONGBLADE, 0), RelicType.RED);
+        BaseMod.addRelic(EquipmentHelper.generate(EquipmentID.STANDARDARMOR, 0), RelicType.SHARED);
         logger.info("saving...");
         inventory.saveInventory();
     }

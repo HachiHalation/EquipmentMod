@@ -19,6 +19,8 @@ public class Inventory {
 
 
     public ArrayList<Equipment> inventory;
+
+    public ArrayList<Equipment> ironcladLoadout; //TODO: implement
     public Equipment ironcladEquipped;
     public Equipment silentEquipped;
     public Equipment defectEquipped;

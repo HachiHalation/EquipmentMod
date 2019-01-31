@@ -9,12 +9,12 @@
       "Start each combat with #b",
       " #yStrength. NL ",
       "Whenever you gain #yStrength outside this relic, gain an additional #b",
-      "#yStrength #yDown is also affected. NL ",
+      " #Strength. #yStrength #yDown is also affected. NL ",
       "Enemies with #yVulnerable receive #b+",
       "% more damage. NL "
     ]
   },
-  "equpmentmof:StandardArmor": {
+  "equipmentmod:StandardArmor": {
     "NAME": "Standard Armor",
     "FLAVOR": "Has a sturdy heft to it.",
     "DESCRIPTIONS": [
@@ -26,7 +26,7 @@
       "Start each combat with #b",
       " #yPlated #yArmor. NL ",
       "Whenever you gain #yPlated #yArmor or #yThorns outside this relic, gain an additional #b",
-      " NL ",
+      " #yPlated #yArmor or #yThorns. NL ",
       "Gain #b",
       " #yhealth. NL "
 
